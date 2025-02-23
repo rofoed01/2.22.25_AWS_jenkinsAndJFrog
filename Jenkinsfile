@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    tools {
+       jfrog 'jfrog-cli'
+    }
     environment {
         AWS_REGION = 'us-west-2' 
     }
@@ -23,31 +26,44 @@ pipeline {
             }
         }
 
-        stage('jFrog Artifactory') {
+
+        stage ('jFrog Artifactory - Test') {
             steps {
-                withCredentials([string(credentialsId: 'jfrog-credentials', variable: 'JFROG_TOKEN')]) {
-                // Show the installed version of JFrog CLI
-                jf '-v'
-                
-                // Show the configured JFrog Platform instances
+                jf '-v' 
                 jf 'c show'
-                
-                // Ping Artifactory
                 jf 'rt ping'
-                
-                // Create a file and upload it to the repository
                 sh 'touch test-file'
-                // Fixed upload command syntax
-                sh 'jf rt upload test-file tf-terraform/ --url= https://trial8m9574.jfrog.io//artifactory --user=skyline7002@gmail.com --password=$JFROG_TOKEN'
-                
-                // Publish the build-info to Artifactory
+                jf 'rt u test-file jfrog-cli/'
                 jf 'rt bp'
+                jf 'rt dl jfrog-cli/test-file'
+                    }
+                } 
+            
+    //     stage('jFrog Artifactory') {
+    //         steps {
+    //             withCredentials([(credentialsId: 'jfrog-credentials', variable: 'JFROG_TOKEN')]) {
+    //             // Show the installed version of JFrog CLI
+    //             jf '-v'
                 
-                // Fixed download command syntax
-                sh 'jf rt download tf-terraform/test-file --url= https://trial8m9574.jfrog.io//artifactory --user=skyline7002@gmail.com --password=$JFROG_TOKEN'
-        }
-    } 
-        }
+    //             // Show the configured JFrog Platform instances
+    //             jf 'c show'
+                
+    //             // Ping Artifactory
+    //             jf 'rt ping'
+                
+    //             // Create a file and upload it to the repository
+    //             sh 'touch test-file'
+    //             // Fixed upload command syntax
+    //             sh 'jf rt upload test-file tf-terraform/ --url= https://trial8m9574.jfrog.io//artifactory --user=skyline7002@gmail.com --password=$JFROG_TOKEN'
+                
+    //             // Publish the build-info to Artifactory
+    //             jf 'rt bp'
+                
+    //             // Fixed download command syntax
+    //             sh 'jf rt download tf-terraform/test-file --url= https://trial8m9574.jfrog.io//artifactory --user=skyline7002@gmail.com --password=$JFROG_TOKEN'
+    //     }
+    // } 
+    //     }
 
 
         stage('Initialize Terraform') {
