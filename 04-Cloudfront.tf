@@ -1,5 +1,5 @@
 resource "aws_cloudfront_origin_access_control" "CFtest" {
-  name                              = "CFtest"
+  name                              = "2.23.25-CFtest"
   description                       = "Example distribution"
   origin_access_control_origin_type = "s3"
   signing_behavior                  = "always"
