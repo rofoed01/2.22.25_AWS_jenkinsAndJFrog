@@ -8,6 +8,12 @@ resource "aws_s3_bucket" "test" {
         environment = "dev"
     }
 }
+resource "aws_s3_bucket_acl" "test" {
+  depends_on = [aws_s3_bucket_ownership_controls.test]
+
+  bucket = aws_s3_bucket.test.id
+  acl    = "private"
+}
 
 resource "aws_s3_bucket_ownership_controls" "test" {
   bucket = aws_s3_bucket.test.id
