@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "test" {
-    bucket_prefix = "2.2.25_terraform-"
+    bucket_prefix = "2.2.25-terraform-"
     object_lock_enabled = false
     force_destroy = true
     
@@ -10,7 +10,7 @@ resource "aws_s3_bucket" "test" {
 }
 
 resource "aws_s3_bucket" "state" {
-  bucket_prefix = "2.2.25_tfState-"
+  bucket_prefix = "2.2.25-tfState-"
   object_lock_enabled = false
   force_destroy = true
 
