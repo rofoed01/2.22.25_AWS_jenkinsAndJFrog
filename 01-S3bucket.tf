@@ -13,7 +13,7 @@ resource "aws_s3_bucket_ownership_controls" "test" {
   bucket = aws_s3_bucket.test.id
 
   rule {
-    object_ownership = "BucketOwnerEnforced"
+    object_ownership = "BucketOwnerPreferred"
   }
 }
 
