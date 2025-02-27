@@ -12,7 +12,7 @@ resource "aws_s3_object" "upload_images_jpeg" {
   for_each     = fileset("${path.module}/", "*.jpg")
   bucket       = aws_s3_bucket.test.id
   key          = each.value
-  acl          = "public-read"
+  #acl          = "public-read"   commented out to allow the bucket ACL to be private
   source       = "${path.module}/${each.value}"
   etag         = filemd5("${path.module}/${each.value}")
   content_type = "image/jpeg"
