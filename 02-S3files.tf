@@ -22,7 +22,7 @@ resource "aws_s3_object" "upload_html" {
   for_each     = fileset("${path.module}/", "*.html")
   bucket       = aws_s3_bucket.test.id
   key          = each.value
-  acl          = "public-read"
+  #acl          = "public-read"
   source       = "${path.module}/${each.value}"
   etag         = filemd5("${path.module}/${each.value}")
   content_type = "text/html"
