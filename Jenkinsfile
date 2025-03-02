@@ -1,8 +1,8 @@
 pipeline {
     agent any
-    tools {
-       jfrog 'jfrog-cli'
-    }
+    // tools {
+    //    jfrog 'jfrog-cli'
+    // }
     environment {
         AWS_REGION = 'us-west-2' 
     }
@@ -27,17 +27,17 @@ pipeline {
         }
 
 
-        stage ('jFrog Artifactory - Test') {
-            steps {
-                jf '-v' 
-                jf 'c show'
-                jf 'rt ping'
-                sh 'touch test-file'
-                jf 'rt u test-file jfrog-cli/'
-                jf 'rt bp'
-                jf 'rt dl jfrog-cli/test-file'
-                    }
-                } 
+        // stage ('jFrog Artifactory - Test') {
+        //     steps {
+        //         jf '-v' 
+        //         jf 'c show'
+        //         jf 'rt ping'
+        //         sh 'touch test-file'
+        //         jf 'rt u test-file jfrog-cli/'
+        //         jf 'rt bp'
+        //         jf 'rt dl jfrog-cli/test-file'
+        //             }
+        //         } 
             
     //     stage('jFrog Artifactory') {
     //         steps {
